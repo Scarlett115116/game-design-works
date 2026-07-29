@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>陈思嘉 · 作品集</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Microsoft YaHei","PingFang SC",sans-serif;background:#fefcf9;color:#2d2c2c;overflow-x:hidden;line-height:1.7}
+body.modal-open{overflow:hidden}
+.bg-pattern{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(circle at 25% 20%,rgba(232,120,90,0.04) 0%,transparent 50%),radial-gradient(circle at 75% 60%,rgba(58,157,139,0.04) 0%,transparent 50%),radial-gradient(circle at 50% 85%,rgba(232,120,90,0.03) 0%,transparent 40%)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#f5f0eb}
+::-webkit-scrollbar-thumb{background:#d4c8bc;border-radius:3px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.anim-hidden{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.anim-hidden.visible{opacity:1;transform:translateY(0)}
+.wrapper{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 2rem}
+
+.hero{padding:14vh 0 8vh}
+.hero-tag{display:inline-block;font-size:.72rem;font-weight:500;letter-spacing:.18em;color:#e8785a;text-transform:uppercase;margin-bottom:1.8rem;padding-bottom:.6rem;border-bottom:2px solid rgba(232,120,90,.3)}
+.hero h1{font-size:clamp(2.8rem,7vw,5rem);font-weight:800;letter-spacing:.03em;line-height:1.1;margin-bottom:.8rem}
+.hero .sub{font-size:1.1rem;color:#8a7e72;max-width:460px;line-height:1.7;margin-bottom:2.5rem}
+.hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.hero-stat .val{font-size:1.6rem;font-weight:700}
+.hero-stat .lbl{font-size:.7rem;color:#a09488;letter-spacing:.08em}
+
+.skills-section{padding-top:1.5rem;border-top:1px solid #f0ece6}
+.skills-main{font-size:1.3rem;font-weight:700;margin-bottom:.3rem}
+.skills-tools{display:flex;flex-wrap:wrap;gap:.4rem .8rem}
+.skills-tools span{font-size:.7rem;color:#8a7e72;background:#faf7f3;padding:.15rem .6rem;border-radius:4px}
+
+.section{padding:7vh 0}
+.section-header{margin-bottom:3rem}
+.section-header .tag{font-size:.68rem;font-weight:600;letter-spacing:.2em;color:#3a9d8b;text-transform:uppercase;margin-bottom:.5rem}
+.section-header h2{font-size:1.8rem;font-weight:700;letter-spacing:.02em}
+
+.file-link{text-decoration:none;color:inherit;display:block;cursor:pointer}
+.card{background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.03);transition:all .35s cubic-bezier(.25,.8,.25,1.2);display:flex;flex-direction:column;height:100%}
+.card.clickable:hover{transform:translateY(-3px);box-shadow:0 6px 28px rgba(0,0,0,.08)}
+.card-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+.card-title{font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.card-meta{font-size:.7rem;color:#a09488;margin-bottom:.8rem;letter-spacing:.04em}
+.card-desc{font-size:.82rem;color:#6b6259;line-height:1.65;flex:1}
+.card-arrow{display:inline-flex;align-items:center;gap:.3rem;margin-top:1rem;font-size:.72rem;font-weight:600;color:#e8785a;transition:gap .25s}
+.card.clickable:hover .card-arrow{gap:.6rem}
+
+.tab-bar{display:flex;gap:.5rem;margin-bottom:1.5rem}
+.tab-btn{padding:.5rem 1.2rem;border:1.5px solid #e0d8cf;border-radius:20px;background:#fff;font-size:.78rem;font-weight:600;color:#6b6259;cursor:pointer;transition:all .2s}
+.tab-btn.active{background:#e8785a;color:#fff;border-color:#e8785a}
+.tab-btn:hover:not(.active){border-color:#d4c8b8}
+
+.design-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2rem}
+.design-grid .item:nth-child(1){grid-column:span 2}
+.design-grid .item:nth-child(5){grid-column:span 2}
+.projects-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:1.5rem;margin-bottom:3rem}
+.projects-layout .card{min-height:200px}
+.internship-card .card-body{padding:2rem}
+.internship-list{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.2rem}
+.internship-item{background:#faf7f3;border-radius:8px;padding:1rem 1.2rem;transition:background .3s;cursor:pointer;text-decoration:none;color:inherit;display:block}
+.internship-item:hover{background:#f3ede5}
+.internship-item .ii-title{font-weight:600;font-size:.88rem}
+.internship-item .ii-desc{font-size:.7rem;color:#8a7e72;margin-top:.2rem;line-height:1.5}
+
+.contact{text-align:center;padding:10vh 0 6vh}
+.contact h2{font-size:1.8rem;font-weight:700;margin-bottom:.8rem}
+.contact p{color:#8a7e72;font-size:.9rem;margin-bottom:2rem}
+.contact-email{display:inline-block;font-size:1rem;font-weight:600;color:#e8785a;text-decoration:none;padding:.7rem 2rem;border:1.5px solid rgba(232,120,90,.3);border-radius:40px;transition:all .3s}
+.contact-email:hover{background:#fef5f2;border-color:#e8785a}
+.contact-footnote{font-size:.65rem;color:#c4b8a8;margin-top:2.5rem;letter-spacing:.08em}
+
+.detail-overlay{position:fixed;inset:0;z-index:200;background:#faf8f5;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
+.detail-overlay.open{transform:translateX(0)}
+.detail-toolbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:1rem;padding:.8rem 1.5rem;background:#fff;border-bottom:1px solid #f0ece6}
+.btn-back{display:inline-flex;align-items:center;gap:.4rem;background:none;border:none;font-size:.85rem;font-weight:600;color:#e8785a;cursor:pointer;padding:.4rem .8rem;border-radius:6px;transition:background .2s}
+.btn-back:hover{background:#fef5f2}
+.detail-title{font-size:.85rem;font-weight:700;color:#2d2c2c}
+.detail-content{padding:2rem 1rem 4rem;max-width:900px;margin:0 auto;width:100%;flex:1}
+.detail-content .meta-line{font-size:.72rem;color:#a09488;margin-bottom:1.5rem}
+.detail-video{width:100%;max-width:800px;display:block;margin:1rem auto;border-radius:8px;background:#000}
+
+@media(max-width:768px){
+  .wrapper{padding:0 1.2rem}
+  .hero{padding:10vh 0 5vh}
+  .design-grid{grid-template-columns:1fr}
+  .design-grid .item:nth-child(1),.design-grid .item:nth-child(5){grid-column:span 1}
+  .projects-layout{grid-template-columns:1fr}
+  .internship-list{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  .detail-content{padding:1rem .5rem 3rem}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+<div class="wrapper">
+
+<header class="hero anim-hidden">
+  <div class="hero-tag">Portfolio</div>
+  <h1>陈思嘉</h1>
+  <p class="sub">东北大学软件学院数字媒体技术 2026 届<br>关卡策划方向 · 雅思 6.5</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="val">Unity</div><div class="lbl">主力引擎</div></div>
+    <div class="hero-stat"><div class="val">C# / C++</div><div class="lbl">脚本语言</div></div>
+    <div class="hero-stat"><div class="val">Blender</div><div class="lbl">3D 美术</div></div>
+  </div>
+  <div class="skills-section">
+    <div class="skills-main">工具能力</div>
+    <div class="skills-tools">
+      <span>C</span><span>C++</span><span>Java</span><span>Unity</span><span>XMind</span>
+      <span>3ds Max</span><span>Blender</span><span>ZBrush</span><span>Figma</span>
+      <span>Midjourney</span><span>Stable Diffusion</span>
+    </div>
+  </div>
+</header>
+
+<section class="section anim-hidden">
+  <div class="section-header">
+    <div class="tag">Personal Projects</div>
+    <h2>个人项目</h2>
+  </div>
+  <div class="projects-layout">
+    <span class="file-link" data-detail="2dparkour">
+      <div class="card clickable">
+        <div class="card-body">
+          <div class="card-meta">Unity · 完整工作流 + 演示视频</div>
+          <div class="card-title">2D 跑酷项目</div>
+          <div class="card-desc">独立设计 5 个闯关关卡，从白盒原型到 Unity 落地配置，含工作流文档与 50s 演示视频。</div>
+          <div class="card-arrow">查看详情 →</div>
+        </div>
+      </div>
+    </span>
+    <span class="file-link" data-detail="fishing">
+      <div class="card clickable">
+        <div class="card-body">
+          <div class="card-meta">可玩 Demo · HTML 游戏</div>
+          <div class="card-title">垂钓雅集</div>
+          <div class="card-desc">休闲钓鱼网页游戏。从装备选择、甩竿命中到捕捞收鱼，完整的核心循环在浏览器中实现。</div>
+          <div class="card-arrow">查看详情 →</div>
+        </div>
+      </div>
+    </span>
+  </div>
+</section>
+
+<section class="section anim-hidden">
+  <div class="section-header">
+    <div class="tag">Internship</div>
+    <h2>实习经历</h2>
+  </div>
+  <div class="card internship-card">
+    <div class="card-body">
+      <div class="card-meta">VR 团队协作项目</div>
+      <div class="card-title" style="font-size:1.1rem">VR 游戏开发</div>
+      <p style="color:#6b6259;font-size:.82rem;margin-top:.4rem">主导厨房场景关卡设计、Unity 机制配置与 VR 交互优化。与程序、美术配合完成资产需求提出与验收，适应敏捷迭代。</p>
+      <div class="internship-list">
+        <span class="internship-item file-link" data-detail="rebloom">
+          <div class="ii-title">ReBloom</div><div class="ii-desc">VR 协作交互项目 · 查看演示视频</div>
+        </span>
+        <span class="internship-item file-link" data-detail="overcooked">
+          <div class="ii-title">胡闹厨房 VR</div><div class="ii-desc">多人空间协同 · 物理反馈 · 查看演示视频</div>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section anim-hidden">
+  <div class="section-header">
+    <div class="tag">Analysis</div>
+    <h2>策划拆解</h2>
+  </div>
+  <div class="design-grid">
+    <span class="file-link item" data-detail="genshin"><div class="card clickable"><div class="card-body"><div class="card-meta">米哈游 · 标杆产品</div><div class="card-title">原神 · 交互系统拆解</div><div class="card-desc">拆解 HUD 布局、战斗/探索双模切换、多端适配菜单信息架构。</div><div class="card-arrow">查看详情 →</div></div></div></span>
+    <span class="file-link item" data-detail="moon"><div class="card clickable"><div class="card-body"><div class="card-meta">休闲合成 · 商业化拆解</div><div class="card-title">明月小镇 · Merge-2</div><div class="card-desc">合成链心流、体力循环、付费节奏的系统级拆解与改进方案。</div><div class="card-arrow">查看详情 →</div></div></div></span>
+    <span class="file-link item" data-detail="garden"><div class="card clickable"><div class="card-body"><div class="card-meta">数值建模 · 经济循环</div><div class="card-title">我的花园世界 · 数值拆解</div><div class="card-desc">五层数值体系、六货币并行设计、种植-订单-花艺经济闭环。</div><div class="card-arrow">查看详情 →</div></div></div></span>
+    <span class="file-link item" data-detail="bingo"><div class="card clickable"><div class="card-body"><div class="card-meta">社交系统 · 创新设计</div><div class="card-title">社交 Bingo · 拆解与创新</div><div class="card-desc">六维乐趣拆解、算法参数反推，基于拆解提出「桃源小镇」原型。</div><div class="card-arrow">查看详情 →</div></div></div></span>
+    <span class="file-link item" data-detail="douyin"><div class="card clickable"><div class="card-body"><div class="card-meta">小游戏 · 关卡节奏</div><div class="card-title">抖音解谜 · 关卡拆解</div><div class="card-desc">解密手法分类、四段难度曲线、失败重试与商业化广告点设计。</div><div class="card-arrow">查看详情 →</div></div></div></span>
+  </div>
+</section>
+
+<footer class="contact anim-hidden">
+  <h2>联系我</h2>
+  <p>如果你对我的作品感兴趣，随时联系</p>
+  <a class="contact-email" href="mailto:1965443934@qq.com">1965443934@qq.com</a>
+  <div class="contact-footnote">东北大学 · 软件学院 · 数字媒体技术 2026届</div>
+</footer>
+
+</div>
+
+<div class="detail-overlay" id="detail-overlay">
+  <div class="detail-toolbar">
+    <button class="btn-back" id="btn-back">← 返回作品集</button>
+    <span class="detail-title" id="detail-title"></span>
+  </div>
+  <div class="detail-content" id="detail-content"></div>
+</div>
+
+<script>
+var contents = {
+
+'2dparkour': {
+  title: '2D 跑酷项目',
+  tabs: true,
+  tab1Title: '演示视频',
+  tab1Content: '<div class="meta-line">50s 演示视频</div>'+
+    '<video class="detail-video" controls style="width:100%;max-width:800px;aspect-ratio:16/9"><source src="portfolio_images/2dparkour_demo.mp4" type="video/mp4">视频无法加载，请直接打开文件</video>',
+  tab2Title: '工作流文档',
+  tab2Content: '<div class="meta-line">Unity 2D Platformer 完整开发流程</div>'+
+    '<img src="portfolio_images/2dparkour_p1.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 1"><img src="portfolio_images/2dparkour_p2.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 2"><img src="portfolio_images/2dparkour_p3.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 3"><img src="portfolio_images/2dparkour_p4.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 4"><img src="portfolio_images/2dparkour_p5.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 5"><img src="portfolio_images/2dparkour_p6.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 6"><img src="portfolio_images/2dparkour_p7.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 7"><img src="portfolio_images/2dparkour_p8.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 8">'
+},
+
+'rebloom': {
+  title: 'ReBloom',
+  html: '<div class="meta-line">VR 团队协作项目</div>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">项目简介</h3><p style="margin-bottom:.6rem;font-size:.85rem;color:#4a4440">VR 团队协作项目，探索虚拟现实空间的交互设计与沉浸体验。聚焦 VR 环境下的用户操作直觉性、空间感知与多人协同机制。</p>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">演示视频</h3>'+
+    '<video class="detail-video" controls style="width:100%;max-width:800px;aspect-ratio:16/9"><source src="file:///D:/春招简历/陈思嘉-作品/ReBloom（VR团队项目）.mp4" type="video/mp4"></video>'
+},
+
+'overcooked': {
+  title: '胡闹厨房 VR',
+  html: '<div class="meta-line">VR 团队协作项目</div>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">项目简介</h3><p style="margin-bottom:.6rem;font-size:.85rem;color:#4a4440">VR 版厨房协作游戏原型。聚焦多人空间交互、物理碰撞反馈与限时任务节奏。</p>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">演示视频</h3>'+
+    '<video class="detail-video" controls style="width:100%;max-width:800px;aspect-ratio:16/9"><source src="file:///D:/春招简历/陈思嘉-作品/胡闹厨房(VR团队项目）.mp4" type="video/mp4"></video>'
+},
+
+'fishing': {
+  title: '垂钓雅集',
+  html: '<div class="meta-line">可玩 Demo · HTML 休闲钓鱼游戏</div>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">游戏概述</h3><p style="margin-bottom:.6rem;font-size:.85rem;color:#4a4440">《垂钓雅集》是一款纯前端实现的休闲钓鱼网页游戏，核心体验围绕"装备选择 → 甩竿 → 命中 → 收鱼"的短循环展开。</p>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">核心玩法循环</h3><p style="margin-bottom:.6rem;font-size:.85rem;color:#4a4440">选择装备（鱼饵 + 钓具）→ 点击甩竿 → 圆环收缩至目标区域时按空格/点击命中 → 鱼上钩 → 点击捕捞网收鱼。整套操作链条在 10-15 秒内完成，短平快的反馈节奏适合碎片化场景。</p>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">操作与反馈机制</h3><p style="margin-bottom:.6rem;font-size:.85rem;color:#4a4440">核心操作"圆环收缩命中"本质是一个 QTE 式的时机判断机制——圆环以固定速度从外围向内收缩，玩家需要在圆环进入命中区域的瞬间按下操作键。这个设计将"等待"转化为"主动捕捉"，相比传统钓鱼游戏的纯随机咬钩，增加了操作参与感。圆环收缩速度对不同鱼种做了差异化：普通鱼收缩慢、命中区域宽，稀有鱼收缩快、命中区域窄，形成天然的难度分层。</p>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">装备系统</h3><p style="margin-bottom:.6rem;font-size:.85rem;color:#4a4440">游戏提供鱼饵和钓具两类装备。不同鱼饵对特定鱼类有吸引力加成，不同钓具影响圆环收缩速度和命中区域大小。装备选择在甩竿前完成，形成"情报收集 → 装备搭配 → 操作执行"的微策略循环。</p>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">自动化设计</h3><p style="margin-bottom:.6rem;font-size:.85rem;color:#4a4440">游戏提供"自动模式"。当玩家已经熟练掌握命中时机后，自动模式将玩家从机械操作中解放，保留装备策略的高层决策权。</p>'+
+    '<h3 style="font-size:1rem;font-weight:700;margin:1.5rem 0 .5rem;color:#2d2c2c">可扩展方向</h3><p style="margin-bottom:.6rem;font-size:.85rem;color:#4a4440">鱼种图鉴收集系统、钓场解锁机制、限时赛事/排行榜、天气/时间影响鱼群出现率的动态难度系统。</p>'
+},
+
+'genshin': {title:'原神 · 交互系统拆解',html:'<div class="meta-line">米哈游 · 标杆产品</div><img src="portfolio_images/genshin_p1.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 1"><img src="portfolio_images/genshin_p2.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 2"><img src="portfolio_images/genshin_p3.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 3"><img src="portfolio_images/genshin_p4.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 4">'},
+'moon': {title:'明月小镇 · Merge-2 系统拆解',html:'<div class="meta-line">休闲合成 · 商业化拆解</div><img src="portfolio_images/moon_p1.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 1"><img src="portfolio_images/moon_p2.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 2"><img src="portfolio_images/moon_p3.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 3"><img src="portfolio_images/moon_p4.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 4"><img src="portfolio_images/moon_p5.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 5">'},
+'garden': {title:'我的花园世界 · 数值系统拆解',html:'<div class="meta-line">数值建模 · 经济循环</div><img src="portfolio_images/garden_p1.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 1"><img src="portfolio_images/garden_p2.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 2"><img src="portfolio_images/garden_p3.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 3"><img src="portfolio_images/garden_p4.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 4"><img src="portfolio_images/garden_p5.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 5"><img src="portfolio_images/garden_p6.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 6"><img src="portfolio_images/garden_p7.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 7"><img src="portfolio_images/garden_p8.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 8"><img src="portfolio_images/garden_p9.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 9"><img src="portfolio_images/garden_p10.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 10"><img src="portfolio_images/garden_p11.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 11"><img src="portfolio_images/garden_p12.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 12"><img src="portfolio_images/garden_p13.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 13"><img src="portfolio_images/garden_p14.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 14">'},
+'bingo': {title:'社交 Bingo · 系统拆解与玩法创新',html:'<div class="meta-line">社交系统 · 创新设计</div><img src="portfolio_images/bingo_p1.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 1"><img src="portfolio_images/bingo_p2.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 2"><img src="portfolio_images/bingo_p3.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 3"><img src="portfolio_images/bingo_p4.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 4"><img src="portfolio_images/bingo_p5.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 5"><img src="portfolio_images/bingo_p6.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 6"><img src="portfolio_images/bingo_p7.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 7"><img src="portfolio_images/bingo_p8.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 8"><img src="portfolio_images/bingo_p9.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 9"><img src="portfolio_images/bingo_p10.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 10">'},
+'douyin': {title:'抖音解谜休闲游戏 · 关卡拆解',html:'<div class="meta-line">小游戏 · 关卡节奏</div><img src="portfolio_images/douyin_p1.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 1"><img src="portfolio_images/douyin_p2.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 2"><img src="portfolio_images/douyin_p3.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 3"><img src="portfolio_images/douyin_p4.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 4"><img src="portfolio_images/douyin_p5.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 5"><img src="portfolio_images/douyin_p6.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 6"><img src="portfolio_images/douyin_p7.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 7"><img src="portfolio_images/douyin_p8.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 8"><img src="portfolio_images/douyin_p9.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 9"><img src="portfolio_images/douyin_p10.png" style="width:100%;max-width:800px;display:block;margin:0 auto 1.5rem;border-radius:6px;box-shadow:0 2px 12px rgba(0,0,0,0.08)" alt="Page 10">'}
+
+};
+
+var overlay = document.getElementById('detail-overlay');
+var detailTitle = document.getElementById('detail-title');
+var detailContent = document.getElementById('detail-content');
+var btnBack = document.getElementById('btn-back');
+var bodyEl = document.body;
+
+function openDetail(id) {
+  var data = contents[id];
+  if (!data) return;
+  detailTitle.textContent = data.title;
+  if (data.tabs) {
+    var activeTab = 'tab1';
+    detailContent.innerHTML =
+      '<div class="tab-bar">'+
+        '<button class="tab-btn active" data-tab="tab1">'+data.tab1Title+'</button>'+
+        '<button class="tab-btn" data-tab="tab2">'+data.tab2Title+'</button>'+
+      '</div>'+
+      '<div id="tab1-content" class="tab-pane">'+data.tab1Content+'</div>'+
+      '<div id="tab2-content" class="tab-pane" style="display:none">'+data.tab2Content+'</div>';
+    detailContent.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        detailContent.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+        btn.classList.add('active');
+        activeTab = btn.getAttribute('data-tab');
+        document.getElementById('tab1-content').style.display = activeTab==='tab1'?'block':'none';
+        document.getElementById('tab2-content').style.display = activeTab==='tab2'?'block':'none';
+      });
+    });
+  } else {
+    detailContent.innerHTML = data.html;
+  }
+  overlay.classList.add('open');
+  bodyEl.classList.add('modal-open');
+  overlay.scrollTop = 0;
+}
+
+function closeDetail() {
+  overlay.classList.remove('open');
+  bodyEl.classList.remove('modal-open');
+}
+
+btnBack.addEventListener('click', closeDetail);
+overlay.addEventListener('click', function(e) { if (e.target === overlay) closeDetail(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && overlay.classList.contains('open')) closeDetail(); });
+
+document.querySelectorAll('.file-link[data-detail]').forEach(function(el) {
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    var id = el.getAttribute('data-detail');
+    if (id) openDetail(id);
+  });
+});
+
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.anim-hidden').forEach(function(el) { observer.observe(el); });
+setTimeout(function() { document.querySelector('.hero').classList.add('visible'); }, 100);
+</script>
+</body>
+</html>
